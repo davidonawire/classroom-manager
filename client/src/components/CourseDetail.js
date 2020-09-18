@@ -11,7 +11,7 @@ const CourseDetail = ({ id }) => {
 
   const parseData = (data) => {
     const name = `${data.Owner.firstName} ${data.Owner.lastName}`;
-    const materials = data.materialsNeeded.split('\n');
+    const materials = data.materialsNeeded ? data.materialsNeeded.split('\n') : [];
     
     setCourse({
       ...data,
