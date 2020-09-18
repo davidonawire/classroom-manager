@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { getCourses } from '../Data';
 import Course from './Course';
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    const url = 'http://localhost:5000/api/courses'
-  
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    };
-  
-    fetch(url, options)
-      .then(response => response.json())
+    getCourses()
       .then(data => setCourses(data));
   },[]);
 
-  return (
-    <div className="bounds">
-      {courses.map( (course) => 
-        <Course 
-          key={course.id} 
-          title={course.title}
-          id={course.id}
-        />
-      )}
-    </div>
-  )
+  if (courses === []) {
+    return <p>Loading ...</p>
+  } else {
+    return (
+      <div className="bounds">
+        {courses.map( (course) => 
+          <Course 
+            key={course.id} 
+            title={course.title}
+            id={course.id}
+          />
+        )}
+      </div>
+    )
+  }
 
 };
 

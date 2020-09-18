@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { getCourses } from '../Data';
 
 const CourseDetail = ({ id }) => {
   const [course, setCourse] = useState();
 
   useEffect(() => {
-    const url = `http://localhost:5000/api/courses/${id}`;
-  
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    };
-  
-    fetch(url, options)
-      .then(response => response.json())
+    getCourses(id)
       .then(data => parseData(data));
   },[id]);
 
