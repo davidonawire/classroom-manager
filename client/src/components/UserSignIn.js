@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../Context';
 import { Link } from 'react-router-dom';
 
 const UserSignIn = () => {
+  const { actions } = useContext(Context);
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   
   const handleSubmit = (event) => {
     event.preventDefault();
+    // actions.signIn(emailAddress, password);
   }
 
   return (
