@@ -16,12 +16,18 @@ export const Provider = (props) => {
     return user;
   }
 
+  const signOut = () => {
+    setUser(null);
+    Cookies.remove('authenticatedUser');
+  }
+
   return (
     <Context.Provider value={ {
       authenticatedUser,
       data: Data,
       actions: {
-        signIn
+        signIn,
+        signOut
       }
     } }>
       {props.children}
