@@ -60,7 +60,6 @@ exports.getCourses = async (id) => {
 }
 
 exports.createCourse = async (course, username, password) => {
-  console.log(course, username, password);
   const response = await accessAPI('/courses', 'POST', course, true, { username, password });
   if (response.status === 201) {
     return [];
