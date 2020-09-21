@@ -1,24 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../Context';
 import { Link } from 'react-router-dom';
+import InlineErrors from './InlineErrors';
 
-const UserSignUp = () => {
+const UserSignUp = (props) => {
+  const { actions, data } = useContext(Context);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState([]);
   
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const url = 'http://localhost:5000/api/users';
-  
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    };
 
     // Check whether passwords match
     if (password === confirmPassword) {
@@ -29,13 +24,22 @@ const UserSignUp = () => {
         password
       };
 
-      options.body = JSON.stringify(user);
-
-      fetch(url, options)
-        .then(response => console.log(response.status));
+      data.createUser(user)
+        .then(errors => {
+          if (errors.length) {
+            setErrors(errors);
+          } else {
+            actions.signIn(emailAddress, password)
+              .then(() => props.history.push('/'));
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          props.history.push('/error');
+        });
     } else {
       // Passwords don't match
-      console.error('Passwords do not match.');
+      setErrors([ 'Passwords do not match.' ]);
     }
   }
 
@@ -44,6 +48,7 @@ const UserSignUp = () => {
         <div className="grid-33 centered signin">
           <h1>Sign Up</h1>
           <div>
+            <InlineErrors errors={errors} />
             <form onSubmit={handleSubmit}>
               <div><input id="firstName" name="firstName" type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)} /></div>
               <div><input id="lastName" name="lastName" type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)} /></div>

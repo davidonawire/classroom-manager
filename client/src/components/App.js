@@ -11,6 +11,8 @@ import CourseDetail from './CourseDetail';
 import UserSignIn from './UserSignIn';
 import UserSignUp from './UserSignUp';
 import UserSignOut from './UserSignOut';
+import Forbidden from './Forbidden';
+import UnhandledError from './UnhandledError';
 import NotFound from './NotFound';
 
 function App() {
@@ -25,6 +27,9 @@ function App() {
             <Route path="/signin" component={UserSignIn} />
             <Route path="/signup" component={UserSignUp} />
             <Route path="/signout" component={UserSignOut} />
+            <Route path="/forbidden" component={Forbidden} />
+            <Route path="/notfound" component={NotFound} />
+            <Route path="/error" component={UnhandledError} />
             <Route component={NotFound} />
           </Switch>
         </div>
