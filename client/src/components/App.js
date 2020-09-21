@@ -9,6 +9,7 @@ import Header from './Header';
 import Courses from './Courses';
 import CourseDetail from './CourseDetail';
 import CreateCourse from './CreateCourse';
+import UpdateCourse from './UpdateCourse';
 import UserSignIn from './UserSignIn';
 import UserSignUp from './UserSignUp';
 import UserSignOut from './UserSignOut';
@@ -27,7 +28,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Courses} />
             <PrivateRoute exact path="/courses/create" component={CreateCourse} />
-            <Route path="/courses/:id" render={(props) => (<CourseDetail id={props.match.params.id} />)} />
+            <PrivateRoute exact path="/courses/:id/update" component={UpdateCourse} />
+            <Route path="/courses/:id" render={(props) => (<CourseDetail courseId={props.match.params.id} />)} />
             <Route path="/signin" component={UserSignIn} />
             <Route path="/signup" component={UserSignUp} />
             <Route path="/signout" component={UserSignOut} />

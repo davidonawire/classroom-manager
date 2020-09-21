@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../Context';
 
-const CourseDetail = ({ id }) => {
+const CourseDetail = ({ courseId }) => {
   const [course, setCourse] = useState();
   const [isCourseOwner, setCourseOwner] = useState(false);
   const { authenticatedUser: authUser, data } = useContext(Context);
@@ -23,9 +23,9 @@ const CourseDetail = ({ id }) => {
       });
     }
 
-    data.getCourses(id)
+    data.getCourses(courseId)
       .then(courseData => parseCourseData(courseData));
-  },[id, data, authUser]);
+  },[courseId, data, authUser]);
 
  
 
@@ -40,7 +40,7 @@ const CourseDetail = ({ id }) => {
             <div className="grid-100">
               {isCourseOwner &&
                 <span><Link className="button" to={'/courses/' + course.id + '/update'}>Update Course</Link>
-                <Link className="button" href="#">Delete Course</Link></span>
+                <Link className="button" to="">Delete Course</Link></span>
               }
               <Link className="button button-secondary" to="/">Return to List</Link></div>
             </div>
