@@ -6,11 +6,13 @@ export const Context = React.createContext();
 
 export const Provider = (props) => {
   const [authenticatedUser, setUser] = useState(Cookies.getJSON('authenticatedUser') || null);
+  const [userPassword, setUserPassword] = useState('');
 
   const signIn = async (username, password) => {
     const user = await Data.getUser(username, password);
     if (user !== null) {
       setUser(user);
+      setUserPassword(password);
       Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
     }
     return user;
@@ -18,12 +20,14 @@ export const Provider = (props) => {
 
   const signOut = () => {
     setUser(null);
+    setUserPassword('');
     Cookies.remove('authenticatedUser');
   }
 
   return (
     <Context.Provider value={ {
       authenticatedUser,
+      userPassword,
       data: Data,
       actions: {
         signIn,

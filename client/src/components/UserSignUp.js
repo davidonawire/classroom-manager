@@ -10,6 +10,7 @@ const UserSignUp = (props) => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   const [errors, setErrors] = useState([]);
   
   const handleSubmit = (event) => {
@@ -43,6 +44,11 @@ const UserSignUp = (props) => {
     }
   }
 
+  const handleCancel = (event) => {
+    event.preventDefault();
+    props.history.push('/');
+  }
+
   return (
     <div className="bounds">
         <div className="grid-33 centered signin">
@@ -55,7 +61,7 @@ const UserSignUp = (props) => {
               <div><input id="emailAddress" name="emailAddress" type="text" placeholder="Email Address" value={emailAddress}  onChange={e => setEmailAddress(e.target.value)} /></div>
               <div><input id="password" name="password" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} /></div>
               <div><input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} /></div>
-              <div className="grid-100 pad-bottom"><button className="button" type="submit">Sign Up</button><button className="button button-secondary" onClick={() => {}}>Cancel</button></div>
+              <div className="grid-100 pad-bottom"><button className="button" type="submit">Sign Up</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button></div>
             </form>
           </div>
           <p>&nbsp;</p>

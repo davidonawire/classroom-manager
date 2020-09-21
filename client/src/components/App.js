@@ -8,12 +8,15 @@ import {
 import Header from './Header';
 import Courses from './Courses';
 import CourseDetail from './CourseDetail';
+import CreateCourse from './CreateCourse';
 import UserSignIn from './UserSignIn';
 import UserSignUp from './UserSignUp';
 import UserSignOut from './UserSignOut';
 import Forbidden from './Forbidden';
 import UnhandledError from './UnhandledError';
 import NotFound from './NotFound';
+
+import PrivateRoute from '../PrivateRoute';
 
 function App() {
   return (
@@ -23,6 +26,7 @@ function App() {
           <Header />
           <Switch>
             <Route exact path="/" component={Courses} />
+            <PrivateRoute exact path="/courses/create" component={CreateCourse} />
             <Route path="/courses/:id" render={(props) => (<CourseDetail id={props.match.params.id} />)} />
             <Route path="/signin" component={UserSignIn} />
             <Route path="/signup" component={UserSignUp} />

@@ -58,3 +58,19 @@ exports.getCourses = async (id) => {
     throw new Error();
   }
 }
+
+exports.createCourse = async (course, username, password) => {
+  console.log(course, username, password);
+  const response = await accessAPI('/courses', 'POST', course, true, { username, password });
+  if (response.status === 201) {
+    return [];
+  } else if (response.status === 401) {
+    return [ 401 ];
+  } else if (response.status === 400) {
+    return response.json().then(data => {
+      return data.errors;
+    });
+  } else {
+    throw new Error();
+  }
+}
