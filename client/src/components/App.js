@@ -10,6 +10,7 @@ import Courses from './Courses';
 import CourseDetail from './CourseDetail';
 import UserSignIn from './UserSignIn';
 import UserSignUp from './UserSignUp';
+import UserSignOut from './UserSignOut';
 import NotFound from './NotFound';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/courses/:id" render={(props) => (<CourseDetail id={props.match.params.id} />)} />
             <Route path="/signin" component={UserSignIn} />
             <Route path="/signup" component={UserSignUp} />
+            <Route path="/signout" component={UserSignOut} />
             <Route component={NotFound} />
           </Switch>
         </div>
