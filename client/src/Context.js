@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 export const Context = React.createContext();
 
 export const Provider = (props) => {
-  const [authenticatedUser, setUser] = useState(null);
+  const [authenticatedUser, setUser] = useState(Cookies.getJSON('authenticatedUser') || null);
 
   const signIn = async (username, password) => {
     const user = await Data.getUser(username, password);
