@@ -3,7 +3,7 @@ import { Context } from '../Context';
 import InlineErrors from './InlineErrors';
 
 const CreateCourse = (props) => {
-  const { authenticatedUser: authUser, userPassword, data } = useContext(Context);
+  const { authenticatedUser: authUser, data } = useContext(Context);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -23,7 +23,7 @@ const CreateCourse = (props) => {
       userId: authUser.id
     }
 
-    data.createCourse(course, authUser.emailAddress, userPassword)
+    data.createCourse(course, authUser.emailAddress, authUser.password)
       .then(errors => {
         if (errors[0] === 401) {
           props.history.push('/forbidden');
