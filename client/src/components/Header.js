@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { Context } from '../Context';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const Header = () => {
+const Header = (props) => {
   const { authenticatedUser: authUser } = useContext(Context);
+  const location = useLocation();
   return (
     <>
       <div className="header">
@@ -17,7 +18,10 @@ const Header = () => {
             :
             <>
               <Link className="signup" to="/signup">Sign Up</Link>
-              <Link className="signin" to="/signin">Sign In</Link>
+              <Link className="signin" to={{
+                pathname: "/signin",
+                state: { from: location }
+              }}>Sign In</Link>
             </>
           }
           </nav>
