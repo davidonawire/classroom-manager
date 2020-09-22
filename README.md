@@ -20,7 +20,6 @@ First, install the project's dependencies using `npm`.
 
 ```
 npm install
-
 ```
 
 Second, seed the SQLite database.
@@ -45,7 +44,6 @@ Install the project dependencies.
 
 ```
 npm install
-
 ```
 
 Start the application.
