@@ -15,7 +15,7 @@ const UserSignIn = (props) => {
     actions.signIn(emailAddress, password)
       .then(user => {
         if (user === null) {
-          setErrors(['Sign-in was unsuccessful']);
+          setErrors(['Sign-in was unsuccessful. Please check your username and password.']);
         } else {
           props.history.push(from);
         }

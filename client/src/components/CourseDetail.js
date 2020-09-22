@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import { Context } from '../Context';
 
 const CourseDetail = (props) => {
@@ -10,24 +11,15 @@ const CourseDetail = (props) => {
   const courseId = props.match.params.id;
 
   useEffect(() => {
-    const parseCourseData = (courseData) => {
-      const name = `${courseData.Owner.firstName} ${courseData.Owner.lastName}`;
-      const materials = courseData.materialsNeeded ? courseData.materialsNeeded.split('\n') : [];
-
-      if (authUser) {
-        setCourseOwner((courseData.userId === authUser.id));
-      }
-      
-      setCourse({
-        ...courseData,
-        name,
-        materials
-      });
-    }
-
     data.getCourses(courseId)
-      .then(courseData => parseCourseData(courseData));
+      .then(courseData => setCourse(courseData));
   },[courseId, data, authUser]);
+
+  useEffect(() => {
+    if (authUser && course) {
+      setCourseOwner((course.userId === authUser.id));
+    }
+  }, [course, authUser])
 
   const handleDelete = () => {
     data.deleteCourse(courseId, authUser.emailAddress, authUser.password)
@@ -66,11 +58,9 @@ const CourseDetail = (props) => {
                 <div className="course--header">
                   <h4 className="course--label">Course</h4>
                   <h3 className="course--title">{course.title}</h3>
-                  <p>By {course.name}</p>
+                  <p>By {course.Owner.firstName} {course.Owner.lastName}</p>
                 </div>
-                <div className="course--description">
-                  {course.description}    
-                </div>
+                <ReactMarkdown source={course.description} className="course--description" />
               </div>
               <div className="grid-25 grid-right">
                 <div className="course--stats">
@@ -81,12 +71,7 @@ const CourseDetail = (props) => {
                     </li>
                     <li className="course--stats--list--item">
                       <h4>Materials Needed</h4>
-                      <ul>
-                        {course.materials.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      
+                      <ReactMarkdown source={course.materialsNeeded} />
                     </li>
                   </ul>
             </div>
