@@ -27,7 +27,6 @@ const UserSignIn = (props) => {
   }
 
   const handleCancel = (event) => {
-    event.preventDefault();
     props.history.push('/');
   }
 

@@ -5,6 +5,7 @@ import InlineErrors from './InlineErrors';
 
 const UserSignUp = (props) => {
   const { actions, data } = useContext(Context);
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -45,7 +46,6 @@ const UserSignUp = (props) => {
   }
 
   const handleCancel = (event) => {
-    event.preventDefault();
     props.history.push('/');
   }
 

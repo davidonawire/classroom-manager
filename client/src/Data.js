@@ -1,4 +1,6 @@
-// Adapted from the 'React Authentication' Treehouse course
+// Single source of direct requests to our REST API
+// Code adapted from the 'React Authentication' Treehouse course
+
 const accessAPI = (path, method = 'GET', body = null, requiresAuth = false, credentials = null) => {
   const url = 'http://localhost:5000/api' + path;
 
