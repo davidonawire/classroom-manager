@@ -2,10 +2,12 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../Context';
 
-const CourseDetail = ({ courseId }) => {
+const CourseDetail = (props) => {
   const [course, setCourse] = useState();
   const [isCourseOwner, setCourseOwner] = useState(false);
   const { authenticatedUser: authUser, data } = useContext(Context);
+
+  const courseId = props.match.params.id;
 
   useEffect(() => {
     const parseCourseData = (courseData) => {
@@ -27,7 +29,20 @@ const CourseDetail = ({ courseId }) => {
       .then(courseData => parseCourseData(courseData));
   },[courseId, data, authUser]);
 
- 
+  const handleDelete = () => {
+    data.deleteCourse(courseId, authUser.emailAddress, authUser.password)
+      .then(status => {
+        if (status === 401) {
+          props.history.push('/forbidden');
+        } else if (status === 204) {
+          props.history.push('/');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        props.history.push('/error');
+      });
+  }
 
   if (!course) {
     return <p>Loading ...</p>
@@ -40,7 +55,7 @@ const CourseDetail = ({ courseId }) => {
             <div className="grid-100">
               {isCourseOwner &&
                 <span><Link className="button" to={'/courses/' + course.id + '/update'}>Update Course</Link>
-                <Link className="button" to="">Delete Course</Link></span>
+                <button className="button" onClick={handleDelete}>Delete Course</button></span>
               }
               <Link className="button button-secondary" to="/">Return to List</Link></div>
             </div>

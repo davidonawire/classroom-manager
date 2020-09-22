@@ -88,3 +88,14 @@ exports.updateCourse = async (id, course, username, password) => {
     throw new Error();
   }
 }
+
+exports.deleteCourse = async (id, username, password) => {
+  const response = await accessAPI(`/courses/${id}`, 'DELETE', null, true, { username, password });
+  if (response.status === 204) {
+    return 204;
+  } else if (response.status === 401) {
+    return 401;
+  } else {
+    throw new Error();
+  }
+}

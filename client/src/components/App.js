@@ -29,7 +29,7 @@ function App() {
             <Route exact path="/" component={Courses} />
             <PrivateRoute exact path="/courses/create" component={CreateCourse} />
             <PrivateRoute exact path="/courses/:id/update" component={UpdateCourse} />
-            <Route path="/courses/:id" render={(props) => (<CourseDetail courseId={props.match.params.id} />)} />
+            <Route path="/courses/:id" component={CourseDetail} />
             <Route path="/signin" component={UserSignIn} />
             <Route path="/signup" component={UserSignUp} />
             <Route path="/signout" component={UserSignOut} />
