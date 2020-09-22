@@ -26,8 +26,12 @@ const UpdateCourse = (props) => {
         setMaterialsNeeded(courseData.materialsNeeded);
         setCourseOwner((courseData.userId === authUser.id));
         setLoaded(true);
+      })
+      .catch(err => {
+        console.log(err);
+        props.history.push('/notfound');
       });
-  },[courseId, data, authUser.id]);
+  },[courseId, data, authUser.id, props.history]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

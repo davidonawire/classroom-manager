@@ -12,8 +12,12 @@ const CourseDetail = (props) => {
 
   useEffect(() => {
     data.getCourses(courseId)
-      .then(courseData => setCourse(courseData));
-  },[courseId, data, authUser]);
+      .then(courseData => setCourse(courseData))
+      .catch(err => {
+        console.log(err);
+        props.history.push('/notfound');
+      });;
+  },[courseId, data, authUser, props.history]);
 
   useEffect(() => {
     if (authUser && course) {
