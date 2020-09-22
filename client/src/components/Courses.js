@@ -8,7 +8,11 @@ const Courses = () => {
 
   useEffect(() => {
     getCourses()
-      .then(data => setCourses(data));
+      .then(data => setCourses(data))
+      .catch(err => {
+        console.log(err);
+        this.props.history.push('/error');
+      });
   },[]);
 
   if (courses === []) {
